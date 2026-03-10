@@ -1,0 +1,190 @@
+:root {
+  --bg-dark: #0f172a;
+  --sidebar-bg: #0b0f1a;
+  --card-bg: #1e293b;
+  --surface: #1e293b;
+  --input-bg: #0f172a;
+  --accent-primary: #6366f1; /* Electric Indigo */
+  --accent-bright: #06b6d4;  /* Bright Cyan */
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --border: #334155;
+  --success: #10b981;
+  --error: #ef4444;
+  --sidebar-width: 280px;
+  --font-lg: 1.25rem;
+}
+
+body {
+  font-size: 1.4rem;
+  margin: 0;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: 'Inter', system-ui, sans-serif;
+  overflow: hidden; 
+}
+
+.app-layout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* --- SIDEBAR (Fixed Rail) --- */
+.sidebar {
+  width: var(--sidebar-width);
+  min-width: var(--sidebar-width); /* Prevent shrinking */
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1.25rem;
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  padding: 0 0.5rem 3rem;
+}
+
+.brand-icon {
+  font-size: 1.8rem;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-bright));
+  -webkit-background-clip: text; /* Fixed: Added this back */
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.brand-text h1 {
+  font-size: 4rem;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.sidebar-nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  background: transparent;
+  border: none;
+  border-radius: 12px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 1.5rem;
+}
+
+.nav-item.active {
+  background: var(--accent-primary);
+  color: white;
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+}
+
+/* --- MAIN STAGE (Fluid Content) --- */
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem; /* Breadth for the table */
+  display: block; /* Occupies entire width */
+  background-color: var(--bg-dark);
+}
+.brand-logo-img {
+  width: 200px;            /* Adjust size as needed */
+  height: 100px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px var(--accent-primary)); /* Gives an AI-glow effect */
+  /* margin-bottom: 0.5rem; */
+}
+.content-container {
+  width: 100%;
+  max-width: 100%; /* Occupies entire page up to sidebar */
+  margin: 0;
+}
+
+.view-wrapper {
+  width: 100%;
+}
+
+/* Inventory Specific Fluidity */
+.inventory-view { 
+  width: 100%; 
+  animation: fadeIn 0.5s ease; 
+}
+
+.modern-table-container {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow-x: auto;
+}
+
+.inventory-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  table-layout: auto;
+}
+
+.inventory-table th {
+  padding: 1.25rem 1.5rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+  background: rgba(255,255,255,0.02);
+  border-bottom: 1px solid var(--border);
+}
+
+.inventory-table td {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+/* --- FORM WRAPPER (Constraint for readability) --- */
+.form-container {
+  max-width: 800px; /* Forms don't look good edge-to-edge */
+  margin: 1rem 0 3rem 0; /* Left aligned */
+  background: var(--card-bg);
+  padding: 2.5rem;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+}
+
+/* Utility Classes */
+.center { text-align: center; }
+.right { text-align: right; }
+
+.status-pill {
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border: 1px solid transparent;
+}
+
+.in-stock { 
+  background: rgba(16, 185, 129, 0.1); 
+  color: var(--success); 
+  border-color: var(--success); 
+}
+
+.out-of-stock { 
+  background: rgba(239, 68, 68, 0.1); 
+  color: var(--error); 
+  border-color: var(--error); 
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
