@@ -146,6 +146,7 @@
 //   );
 // }
 import { useState, useEffect, useCallback } from 'react';
+import { API_BASE_URL } from '../api/config';
 
 // const API_BASE_URL = 'http://localhost:5000';
 // This will use the Render URL if available, otherwise it defaults to localhost

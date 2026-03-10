@@ -1,5 +1,6 @@
 // 
 import { useState } from 'react';
+import { API_BASE_URL } from '../api/config';
 
 // Replace this with your actual Render/Railway/Heroku backend URL
 // const API_BASE_URL = 'http://localhost:5000'; 

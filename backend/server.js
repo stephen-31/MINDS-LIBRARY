@@ -88,7 +88,7 @@ const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/librar
 // --- UPDATED CORS SETTINGS ---
 // This allows your Vite frontend (port 5173) to securely access this API
 app.use(cors({
-  origin: 'http://localhost:5173', 
+  origin: 'https://minds-library.vercel.app', 
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));

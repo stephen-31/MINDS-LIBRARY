@@ -453,6 +453,7 @@
 
 
 import { useState, useEffect, useRef } from 'react';
+import { API_BASE_URL } from '../api/config';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
