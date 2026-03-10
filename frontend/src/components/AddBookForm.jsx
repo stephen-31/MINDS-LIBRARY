@@ -1,11 +1,14 @@
+// 
 import { useState } from 'react';
 
+// Replace this with your actual Render/Railway/Heroku backend URL
+const API_BASE_URL = 'http://localhost:5000'; 
+
 export default function AddBookForm({ onSuccess }) {
-  // Ensure your state includes author and isbn
   const [bookData, setBookData] = useState({
     title: '',
-    author: '', // Ensure this is not empty
-    isbn: '',   // Ensure this is not empty
+    author: '',
+    isbn: '',
     totalQuantity: '',
   });
   const [loading, setLoading] = useState(false);
@@ -16,7 +19,8 @@ export default function AddBookForm({ onSuccess }) {
     setMessage(null);
     setLoading(true);
     try {
-      const res = await fetch('/api/books', {
+      // Use the absolute URL for the live environment
+      const res = await fetch(`${API_BASE_URL}/api/books`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -26,9 +30,17 @@ export default function AddBookForm({ onSuccess }) {
           totalQuantity: parseInt(bookData.totalQuantity, 10),
         }),
       });
+
+      // Handle non-JSON responses (like 404 Not Found)
+      const contentType = res.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        throw new Error("Server did not return JSON. Check your API URL.");
+      }
+
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Failed to add book');
-      setMessage({ type: 'success', text: data.message });
+      
+      setMessage({ type: 'success', text: data.message || "Book added!" });
       setBookData({ title: '', author: '', isbn: '', totalQuantity: '' });
       onSuccess?.();
     } catch (err) {
@@ -40,8 +52,8 @@ export default function AddBookForm({ onSuccess }) {
 
   return (
     <section className="section-card">
-      <h2>Add Book to Inventory</h2>
-      <p>Enter book details to update stock levels.</p>
+      <h1 className="main-title">Add Book to Inventory</h1>
+      <h5 className="sub-title">Enter book details to update stock levels.</h5>
 
       {message && (
         <div className={`alert alert-${message.type}`}>{message.text}</div>
@@ -92,21 +104,30 @@ export default function AddBookForm({ onSuccess }) {
       </form>
 
       <style>{`
-         .section-card{background: #1a2233; padding: 2rem; border-radius: 12px; color: white;}
+        :root {
+          --bg-dark: #0f172a;
+          --border: #1f2937;
+          --accent-primary: #6366f1;
+          --text-muted: #9ca3af;
+        }
+        .section-card { background: #1a2233; padding: 2rem; border-radius: 12px; color: white; }
+        .main-title { font-size: 2rem; margin-top: 0; }
+        .sub-title { color: #9ca3af; margin-bottom: 2rem; font-weight: 400; }
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
-        .form-group label { display: block; margin-bottom: 8px; color: var(--text-muted); font-size: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 8px; color: var(--text-muted); font-size: 1rem; }
         .modern-form input { 
           width: 100%; padding: 12px; background: var(--bg-dark); 
-          border: 1px solid var(--border); color: white; border-radius: 8px; font-size: 1.5rem;
+          border: 1px solid var(--border); color: white; border-radius: 8px; font-size: 1.1rem;
+          box-sizing: border-box;
         }
         .btn-primary { 
-        font-size:1.5rem;
-          width: 100%; padding: 14px; background: var(--accent-primary); 
-          color: white; border: 1px solid var(--border); border-radius: 8px; font-weight: 600; cursor: pointer;
+          font-size: 1.2rem; width: 100%; padding: 14px; background: var(--accent-primary); 
+          color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;
+          transition: opacity 0.2s;
         }
-          
-          
-        .alert { padding: 12px; border-radius: 8px; margin-bottom: 15px; border: 1px solid; }
+        .btn-primary:hover { opacity: 0.9; }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+        .alert { padding: 12px; border-radius: 8px; margin-bottom: 15px; border: 1px solid; font-size: 1rem; }
         .alert-error { background: rgba(239, 68, 68, 0.1); border-color: #ef4444; color: #ef4444; }
         .alert-success { background: rgba(16, 185, 129, 0.1); border-color: #10b981; color: #10b981; }
       `}</style>
