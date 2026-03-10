@@ -47,7 +47,7 @@ const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/librar
 // --- UPDATED CORS SETTINGS ---
 app.use(cors({
   // Replace the URL below with your actual Vercel Production URL
-  origin: 'https://minds-library.vercel.app', 
+  origin: 'https://minds-library.vercel.app/', 
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
