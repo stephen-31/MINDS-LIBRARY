@@ -22,7 +22,7 @@ cp .env.example .env   # Edit MONGODB_URI if needed
 npm run dev
 ```
 
-Runs on `http://localhost:5000`.
+Runs on `https://minds-library-backend.onrender.com`.
 
 ### 3. Frontend
 

@@ -8,7 +8,7 @@ export default defineConfig({
     proxy: {
       // This redirects any request starting with /api to your backend
       '/api': {
-        target: 'http://localhost:5000',
+        target: 'https://minds-library-backend.onrender.com',
         changeOrigin: true,
         secure: false,
       }

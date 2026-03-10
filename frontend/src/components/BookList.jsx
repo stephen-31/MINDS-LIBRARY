@@ -5,7 +5,7 @@ export default function BookList() {
   const [loading, setLoading] = useState(true);
 
   const fetchBooks = () => {
-    fetch('http://localhost:5000/api/books')
+    fetch('https://minds-library-backend.onrender.com/api/books')
       .then((r) => r.json())
       .then((data) => setBooks(Array.isArray(data) ? data : []))
       .catch((err) => console.error("Fetch error:", err))
@@ -19,7 +19,7 @@ export default function BookList() {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this book?")) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/books/${id}`, { 
+      const res = await fetch(`https://minds-library-backend.onrender.com/api/books/${id}`, { 
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' }
       });
