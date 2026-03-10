@@ -126,7 +126,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import * as XLSX from 'xlsx'; // Import the library
 
-const API_BASE_URL = 'http://localhost:5000';
+// const API_BASE_URL = 'http://localhost:5000';
+// This will use the Render URL if available, otherwise it defaults to localhost
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 export default function ReturnBookForm({ onSuccess }) {
   const [transactions, setTransactions] = useState([]);
